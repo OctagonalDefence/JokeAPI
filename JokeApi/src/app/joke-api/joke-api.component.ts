@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import { JokeApiService, Joke } from '../joke-api.service';
+import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'app-joke-api',
   standalone: true,
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './joke-api.component.html',
   styleUrl: './joke-api.component.scss'
 })

@@ -1,1 +1,5 @@
-<p>joke-api works!</p>
+<div *ngIf="joke">
+    <p *ngIf="joke.type === 'single'">{{ joke.joke }}</p>
+    <p *ngIf="joke?.type === 'twopart'">{{ joke.setup }} <br>{{ joke.delivery }}</p>
+  </div>
+  <button (click)="getNewJoke()">Genera Una Altra Broma</button>
