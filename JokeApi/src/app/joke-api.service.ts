@@ -2,6 +2,13 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
+export interface Joke {
+  type: 'single' | 'twopart';
+  joke?: string;  
+  setup?: string; 
+  delivery?: string; 
+}
+
 @Injectable({
   providedIn: 'root'
 })

@@ -1,25 +1,22 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { of, throwError } from 'rxjs';
+import { TestBed, ComponentFixture } from '@angular/core/testing';
 import { JokeApiComponent } from './joke-api.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { of } from 'rxjs';
 import { JokeApiService } from '../joke-api.service';
 
-describe('JokeComponent', () => {
+describe('JokeApiComponent', () => {
   let component: JokeApiComponent;
   let fixture: ComponentFixture<JokeApiComponent>;
-  let mockJokeService: jasmine.SpyObj<JokeApiService>;
-
-  const mockSingleJoke = { type: 'single', joke: 'Why do programmers prefer dark mode? Because the light attracts bugs!' };
-  const mockTwoPartJoke = { type: 'twopart', setup: 'Why do Java developers wear glasses?', delivery: 'Because they don\'t see sharp.' };
+  let mockJokeService: any;
+  let mockSingleJoke = { joke: 'Why did the chicken cross the road? To get to the other side!' };
+  let mockTwoPartJoke = { setup: 'Why did the chicken cross the road?', punchline: 'To get to the other side!' };
 
   beforeEach(async () => {
-    mockJokeService = jasmine.createSpyObj('JokeService', ['getJoke']);
+    mockJokeService = jasmine.createSpyObj(['getJoke']);
 
     await TestBed.configureTestingModule({
-      declarations: [JokeApiComponent],
-      providers: [
-        { provide: JokeApiService, useValue: mockJokeService }
-      ]
+      imports: [HttpClientTestingModule, JokeApiComponent],
+      providers: [{ provide: JokeApiService, useValue: mockJokeService }]
     }).compileComponents();
   });
 
@@ -48,8 +45,6 @@ describe('JokeComponent', () => {
 
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('p')?.textContent).toContain(mockTwoPartJoke.setup);
-    expect(compiled.querySelector('p')?.textContent).toContain(mockTwoPartJoke.delivery);
+    expect(compiled.querySelector('p')?.textContent).toContain(mockTwoPartJoke.punchline);
   });
-
 });
-

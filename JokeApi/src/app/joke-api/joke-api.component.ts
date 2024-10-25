@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { JokeApiService, Joke } from '../joke-api.service';
 
 @Component({
   selector: 'app-joke-api',
@@ -7,6 +8,21 @@ import { Component } from '@angular/core';
   templateUrl: './joke-api.component.html',
   styleUrl: './joke-api.component.scss'
 })
-export class JokeApiComponent {
+export class JokeApiComponent implements OnInit {
+
+  joke: Joke | null = null;
+
+  constructor(private jokeApiService: JokeApiService) { }
+
+  ngOnInit(): void {
+    this.getNewJoke();
+  }
+
+  getNewJoke(): void {
+    this.jokeApiService.getJoke().subscribe({
+      next: (joke) => this.joke = joke,
+      error: (error) => console.error('Error al obtener el chiste', error)
+    });
+  }
 
 }
